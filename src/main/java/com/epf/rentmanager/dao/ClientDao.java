@@ -45,5 +45,5 @@ public class ClientDao {
 	public List<Client> findAll() throws DaoException {
 		return new ArrayList<Client>();
 	}
-
+/** test **//
 }
