@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.epf.rentmanager.persistence.ConnectionManager;
+import com.epf.rentmanager.models.Client;
 
 public class ClientDao {
 	
