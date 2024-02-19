@@ -6,10 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.models.Client;
@@ -111,7 +109,7 @@ public class ClientDao {
 	}
 
 	private Client extractClientFromResultSet(ResultSet resultSet) throws SQLException {
-		Client client = new Client();
+		Client client = new Client(lastName, firstName, email, dob);
 		client.setId((int) resultSet.getLong("id"));
 		client.setNom(resultSet.getString("nom"));
 		client.setPrénom(resultSet.getString("prénom"));
