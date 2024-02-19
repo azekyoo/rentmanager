@@ -109,7 +109,7 @@ public class ClientDao {
 	}
 
 	private Client extractClientFromResultSet(ResultSet resultSet) throws SQLException {
-		Client client = new Client(lastName, firstName, email, dob);
+		Client client = new Client(id, prénom, nom, email, naissance);
 		client.setId((int) resultSet.getLong("id"));
 		client.setNom(resultSet.getString("nom"));
 		client.setPrénom(resultSet.getString("prénom"));

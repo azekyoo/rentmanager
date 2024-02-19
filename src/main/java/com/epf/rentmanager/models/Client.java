@@ -8,11 +8,11 @@ public class Client {
     private String email;
     private LocalDate naissance;
 
-    public Client(String lastName, String firstName, String email, LocalDate dob) {
+    public Client(Integer id, String nom, String prénom, String email, LocalDate naissance) {
         this.id = id;
         this.nom = nom;
         this.prénom = prénom;
-        this.email = this.email;
+        this.email = email;
         this.naissance = naissance;
 
     }
