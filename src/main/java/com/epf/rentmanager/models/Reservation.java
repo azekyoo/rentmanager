@@ -1,7 +1,5 @@
 package com.epf.rentmanager.models;
 
-import jdk.vm.ci.meta.Local;
-
 import java.time.LocalDate;
 
 public class Reservation {
@@ -11,7 +9,7 @@ public class Reservation {
     private LocalDate debut;
     private LocalDate fin;
 
-    public Reservation(Integer id, Integer client_id, Integer vehicle_id, LocalDate debut, LocalDate fin) {
+    public Reservation() {
         this.id = id;
         this.client_id = client_id;
         this.vehicle_id = vehicle_id;
