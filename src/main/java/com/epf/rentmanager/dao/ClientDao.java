@@ -15,35 +15,108 @@ import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.models.Client;
 
 public class ClientDao {
-	
+
 	private static ClientDao instance = null;
-	private ClientDao() {}
+
+	private ClientDao() {
+	}
+
 	public static ClientDao getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new ClientDao();
 		}
 		return instance;
 	}
-	
+
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
-	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
+	private static final String FIND_CLIENT_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
-	
+
 	public long create(Client client) throws DaoException {
-		return 0;
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement preparedStatement = connection.prepareStatement(CREATE_CLIENT_QUERY,
+					 Statement.RETURN_GENERATED_KEYS)) {
+
+			preparedStatement.setString(1, client.getNom());
+			preparedStatement.setString(2, client.getPrénom());
+			preparedStatement.setString(3, client.getEmail());
+			preparedStatement.setDate(4, Date.valueOf(client.getNaissance()));
+
+			int affectedRows = preparedStatement.executeUpdate();
+
+			if (affectedRows == 0) {
+				throw new DaoException("Creating client failed, no rows affected.");
+			}
+
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					return generatedKeys.getLong(1);
+				} else {
+					throw new DaoException("Creating client failed, no ID obtained.");
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Error creating client", e);
+		}
 	}
-	
+
 	public long delete(Client client) throws DaoException {
-		return 0;
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CLIENT_QUERY)) {
+
+			preparedStatement.setLong(1, client.getId());
+			return preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DaoException("Error deleting client", e);
+		}
 	}
 
 	public Client findById(long id) throws DaoException {
-		return new Client();
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement preparedStatement = connection.prepareStatement(FIND_CLIENT_QUERY)) {
+
+			preparedStatement.setLong(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return extractClientFromResultSet(resultSet);
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException("Error finding client by ID", e);
+		}
+
+		throw new DaoException("Client not found with ID: " + id);
 	}
 
 	public List<Client> findAll() throws DaoException {
-		return new ArrayList<Client>();
+		List<Client> clients = new ArrayList<>();
+
+		try (Connection connection = ConnectionManager.getConnection();
+			 Statement statement = connection.createStatement()) {
+
+			ResultSet resultSet = statement.executeQuery(FIND_CLIENTS_QUERY);
+
+			while (resultSet.next()) {
+				clients.add(extractClientFromResultSet(resultSet));
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException("Error finding all clients", e);
+		}
+
+		return clients;
 	}
 
+	private Client extractClientFromResultSet(ResultSet resultSet) throws SQLException {
+		Client client = new Client();
+		client.setId((int) resultSet.getLong("id"));
+		client.setNom(resultSet.getString("nom"));
+		client.setPrénom(resultSet.getString("prenom"));
+		client.setEmail(resultSet.getString("email"));
+		client.setNaissance(resultSet.getDate("naissance").toLocalDate());
+		return client;
+	}
 }

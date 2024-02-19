@@ -1,5 +1,4 @@
 package com.epf.rentmanager.models;
-import jdk.vm.ci.meta.Local;
 
 import java.time.LocalDate;
 public class Client {
@@ -9,7 +8,7 @@ public class Client {
     private String email;
     private LocalDate naissance;
 
-    public Client(Integer id, String nom, String prénom, String email, LocalDate naissance) {
+    public Client() {
         this.id = id;
         this.nom = nom;
         this.prénom = prénom;
