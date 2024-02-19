@@ -6,7 +6,7 @@ public class Vehicule {
     private String modele;
     private Integer nb_places;
 
-    public Vehicule(Integer id, String constructeur, String modele, Integer nb_places) {
+    public Vehicule() {
         this.id = id;
         this.constructeur = constructeur;
         this.modele = modele;

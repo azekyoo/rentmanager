@@ -46,18 +46,18 @@ public class ClientDao {
 			int affectedRows = preparedStatement.executeUpdate();
 
 			if (affectedRows == 0) {
-				throw new DaoException("Creating client failed, no rows affected.");
+				throw new DaoException("Erreur lors de la création de client, pas de rows affectées");
 			}
 
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					return generatedKeys.getLong(1);
 				} else {
-					throw new DaoException("Creating client failed, no ID obtained.");
+					throw new DaoException("Erreur lors de la création de client, pas d'id obtenu");
 				}
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Error creating client", e);
+			throw new DaoException("Erreur lors de la création de client", e);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class ClientDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DaoException("Error deleting client", e);
+			throw new DaoException("Erreur lors de la création de client", e);
 		}
 	}
 
@@ -85,10 +85,10 @@ public class ClientDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException("Error finding client by ID", e);
+			throw new DaoException("Erreur lors de la recherche de client par id", e);
 		}
 
-		throw new DaoException("Client not found with ID: " + id);
+		throw new DaoException("Client non trouvé a pour id " + id);
 	}
 
 	public List<Client> findAll() throws DaoException {
@@ -104,7 +104,7 @@ public class ClientDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException("Error finding all clients", e);
+			throw new DaoException("Erreur lors du listage de l'ensemble des clients", e);
 		}
 
 		return clients;
@@ -114,7 +114,7 @@ public class ClientDao {
 		Client client = new Client();
 		client.setId((int) resultSet.getLong("id"));
 		client.setNom(resultSet.getString("nom"));
-		client.setPrénom(resultSet.getString("prenom"));
+		client.setPrénom(resultSet.getString("prénom"));
 		client.setEmail(resultSet.getString("email"));
 		client.setNaissance(resultSet.getDate("naissance").toLocalDate());
 		return client;
