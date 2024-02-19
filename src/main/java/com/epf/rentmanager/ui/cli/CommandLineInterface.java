@@ -5,7 +5,6 @@ import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehiculeService;
-import com.epf.rentmanager.service.VehiculeService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -114,7 +113,7 @@ public class CommandLineInterface {
         int seats = scanner.nextInt();
 
         try {
-            Vehicule newVehicle = new Vehicule(manufacturer, seats);
+            Vehicule newVehicle = new Vehicule(constructeur, nb_places);
             vehiculeService.create(newVehicle);
             System.out.println("Vehicle created successfully!");
         } catch (ServiceException e) {

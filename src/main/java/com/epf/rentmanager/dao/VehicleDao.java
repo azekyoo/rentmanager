@@ -106,10 +106,11 @@ public class VehicleDao {
 	}
 
 	private Vehicule extractVehiculeFromResultSet(ResultSet resultSet) throws SQLException {
-		Vehicule vehicule = new Vehicule(id, constructeur, modele, nb_places);
-		vehicule.setId((int) resultSet.getLong("id"));
-		vehicule.setConstructeur(resultSet.getString("constructeur"));
-		vehicule.setNb_places(resultSet.getInt("nb_places"));
-		return vehicule;
+		int id = resultSet.getInt("id");
+		String constructeur = resultSet.getString("constructeur");
+		String modele = resultSet.getString("modele");
+		int nb_places = resultSet.getInt("nb_places");
+
+		return new Vehicule(id, constructeur, modele, nb_places );
 	}
 }

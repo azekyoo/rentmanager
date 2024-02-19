@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,12 +110,13 @@ public class ClientDao {
 	}
 
 	private Client extractClientFromResultSet(ResultSet resultSet) throws SQLException {
-		Client client = new Client(id, prénom, nom, email, naissance);
-		client.setId((int) resultSet.getLong("id"));
-		client.setNom(resultSet.getString("nom"));
-		client.setPrénom(resultSet.getString("prénom"));
-		client.setEmail(resultSet.getString("email"));
-		client.setNaissance(resultSet.getDate("naissance").toLocalDate());
-		return client;
+		int id = resultSet.getInt("id");
+		String nom = resultSet.getString("nom");
+		String prenom = resultSet.getString("prenom");
+		String email = resultSet.getString("email");
+		LocalDate birthdate = resultSet.getDate("naissance").toLocalDate();
+
+		return new Client(id, nom, prenom, email, birthdate);
+
 	}
 }
