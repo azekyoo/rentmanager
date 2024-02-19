@@ -57,7 +57,7 @@ public class ClientDao {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la création de client", e);
+			throw new DaoException("Erreur lors de la création de client");
 		}
 	}
 
@@ -69,7 +69,7 @@ public class ClientDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la création de client", e);
+			throw new DaoException("Erreur lors de la création de client");
 		}
 	}
 
@@ -85,7 +85,7 @@ public class ClientDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la recherche de client par id", e);
+			throw new DaoException("Erreur lors de la recherche de client par id");
 		}
 
 		throw new DaoException("Client non trouvé a pour id " + id);
@@ -104,7 +104,7 @@ public class ClientDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors du listage de l'ensemble des clients", e);
+			throw new DaoException("Erreur lors du listage de l'ensemble des clients");
 		}
 
 		return clients;

@@ -11,16 +11,16 @@ import java.util.List;
 import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.persistence.ConnectionManager;
 
-public class VehiculeDao {
+public class VehicleDao {
 
-	private static VehiculeDao instance = null;
+	private static VehicleDao instance = null;
 
-	private VehiculeDao() {
+	private VehicleDao() {
 	}
 
-	public static VehiculeDao getInstance() {
+	public static VehicleDao getInstance() {
 		if (instance == null) {
-			instance = new VehiculeDao();
+			instance = new VehicleDao();
 		}
 		return instance;
 	}
@@ -52,7 +52,7 @@ public class VehiculeDao {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la création de véhicule", e);
+			throw new DaoException("Erreur lors de la création de véhicule");
 		}
 	}
 
@@ -64,7 +64,7 @@ public class VehiculeDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la suppression de véhicule", e);
+			throw new DaoException("Erreur lors de la suppression de véhicule");
 		}
 	}
 
@@ -80,7 +80,7 @@ public class VehiculeDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la recherche de véhicule par id", e);
+			throw new DaoException("Erreur lors de la recherche de véhicule par id");
 		}
 
 		throw new DaoException("Véhicule non trouvé a pour id " + id);
@@ -99,7 +99,7 @@ public class VehiculeDao {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors du listage de l'ensemble des véhicules", e);
+			throw new DaoException("Erreur lors du listage de l'ensemble des véhicules");
 		}
 
 		return vehicles;
