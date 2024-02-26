@@ -43,11 +43,11 @@ public class FillDatabase {
 
             // Remplissage de la base avec des Vehicules et des Clients
             Statement stmt = connection.createStatement();
-            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places) VALUES('Renault', 4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places) VALUES('Peugeot', 4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places) VALUES('Seat', 4)");
-            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places) VALUES('Nissan', 4)");
-            
+            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places, modele) VALUES('Renault', 5, 'Clio')");
+            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places, modele) VALUES('Peugeot', 5, '3008')");
+            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places, modele) VALUES('Seat', 5, 'Leon')");
+            stmt.execute("INSERT INTO Vehicle(constructeur, nb_places, modele) VALUES('Nissan', 5, 'Juke')");
+
             stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Dupont', 'Jean', 'jean.dupont@email.com', '1988-01-22')");
             stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Morin', 'Sabrina', 'sabrina.morin@email.com', '1988-01-22')");
             stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Afleck', 'Steeve', 'steeve.afleck@email.com', '1988-01-22')");
