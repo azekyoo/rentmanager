@@ -13,6 +13,12 @@ public class Vehicule {
         this.nb_places = nb_places;
     }
 
+    public Vehicule(String constructeur, String modele, Integer nb_places) {
+        this.constructeur = constructeur;
+        this.modele = modele;
+        this.nb_places = nb_places;
+    }
+
     public Integer getId() {
         return id;
     }

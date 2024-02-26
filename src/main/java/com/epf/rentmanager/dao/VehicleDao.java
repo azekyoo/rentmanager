@@ -36,7 +36,8 @@ public class VehicleDao {
 					 Statement.RETURN_GENERATED_KEYS)) {
 
 			preparedStatement.setString(1, vehicule.getConstructeur());
-			preparedStatement.setInt(2, vehicule.getNb_places());
+			preparedStatement.setString(2, vehicule.getModele());
+			preparedStatement.setInt(3, vehicule.getNb_places());
 
 			int affectedRows = preparedStatement.executeUpdate();
 

@@ -17,6 +17,14 @@ public class Client {
 
     }
 
+    public Client(String nom, String prénom, String email, LocalDate naissance) {
+        this.nom = nom;
+        this.prénom = prénom;
+        this.email = email;
+        this.naissance = naissance;
+
+    }
+
     public Integer getId() {
         return id;
     }

@@ -109,11 +109,14 @@ public class CommandLineInterface {
         System.out.println("Enter the vehicle manufacturer:");
         String manufacturer = scanner.nextLine();
 
+        System.out.println("Enter the modele of the vehicle:");
+        String modele = scanner.nextLine();
+
         System.out.println("Enter the number of seats in the vehicle:");
         int seats = scanner.nextInt();
 
         try {
-            Vehicule newVehicle = new Vehicule(constructeur, nb_places);
+            Vehicule newVehicle = new Vehicule(manufacturer, modele, seats);
             vehiculeService.create(newVehicle);
             System.out.println("Vehicle created successfully!");
         } catch (ServiceException e) {
