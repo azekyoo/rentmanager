@@ -17,6 +17,21 @@ public class Reservation {
         this.fin = fin;
     }
 
+    public Reservation(Integer id, Integer client_id, Integer vehicle_id, LocalDate debut, LocalDate fin) {
+        this.id = id;
+        this.client_id = client_id;
+        this.vehicle_id = vehicle_id;
+        this.debut = debut;
+        this.fin = fin;
+    }
+
+    public Reservation(Integer client_id, Integer vehicle_id, LocalDate debut, LocalDate fin) {
+        this.client_id = client_id;
+        this.vehicle_id = vehicle_id;
+        this.debut = debut;
+        this.fin = fin;
+    }
+
     public Integer getId() {
         return id;
     }
