@@ -33,6 +33,14 @@ public class ClientService {
 		}
 	}
 
+	public void delete(Client client) throws ServiceException {
+		try {
+			clientDao.delete(client);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la suppression du client");
+		}
+	}
+
 	public Client findById(long id) throws ServiceException {
 		try {
 			return clientDao.findById(id);

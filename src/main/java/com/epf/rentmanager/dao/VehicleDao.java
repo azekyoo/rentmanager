@@ -57,7 +57,7 @@ public class VehicleDao {
 		}
 	}
 
-	public long delete(Vehicule vehicule) throws DaoException {
+	public static long delete(Vehicule vehicule) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
 			 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_VEHICLE_QUERY)) {
 

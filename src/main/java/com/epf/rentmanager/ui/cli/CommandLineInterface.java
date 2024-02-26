@@ -5,6 +5,7 @@ import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehiculeService;
+import com.epf.rentmanager.utils.IOUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class CommandLineInterface {
 
-    private final ClientService clientService;
+    private static ClientService clientService;
     private final VehiculeService vehiculeService;
 
     public CommandLineInterface(ClientService clientService, VehiculeService vehicleService) {
@@ -138,22 +139,26 @@ public class CommandLineInterface {
         }
     }
 
-    private void deleteClient() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the ID of the client to delete:");
-        long clientId = scanner.nextLong();
-
-        System.out.println("Client deleted successfully!");
+    private static void deleteClient() {
+        long id = IOUtils.readInt("ID du client à supprimer : ");
+        try {
+            Client client = clientService.findById(id);
+            clientService.delete(client);
+            System.out.println("Le client a été supprimé avec succès !");
+        } catch (ServiceException e) {
+            System.out.println("Erreur lors de la suppression du client : " + e.getMessage());
+        }
     }
 
-    private void deleteVehicle() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the ID of the vehicle to delete:");
-        long vehicleId = scanner.nextLong();
-
-        System.out.println("Vehicle deleted successfully!");
+    private static void deleteVehicle() {
+        long id = IOUtils.readInt("ID du véhicule à supprimer : ");
+        try {
+            Vehicule vehicle = VehiculeService.getInstance().findById(id);
+            VehiculeService.delete(vehicle);
+            System.out.println("Le véhicule a été supprimé avec succès !");
+        } catch (ServiceException e) {
+            System.out.println("Erreur lors de la suppression du véhicule : " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
