@@ -22,8 +22,9 @@ public class CommandLineInterface {
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        while (true) {
+        while (running) {
             System.out.println("Choisissez une option:");
             System.out.println("1. Créer un client");
             System.out.println("2. Lister les clients");
@@ -57,6 +58,7 @@ public class CommandLineInterface {
                     break;
                 case 0:
                     System.out.println("Interruption...");
+                    running = false;
                     System.exit(0);
                     break;
                 default:
