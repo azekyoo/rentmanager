@@ -1,15 +1,17 @@
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/exception/DaoException.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/utils/IOUtils.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/service/ClientService.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/model/Client.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/dao/ClientDao.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/servlet/HomeServlet.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/model/Reservation.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/service/VehicleService.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/dao/ReservationDao.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/model/Vehicle.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/main/Main.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/persistence/ConnectionManager.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/exception/ServiceException.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/dao/VehicleDao.java
-/home/excilys/Documents/eclipse-workspace-JEE/rentmanager/src/main/java/epf/persistence/FillDatabase.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\DaoException.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\models\Vehicule.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\cli\CommandLineInterface.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\models\Client.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\HomeServlet.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\VehiculeService.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleListServlet.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\persistence\ConnectionManager.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ClientDao.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ReservationService.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ClientService.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\models\Reservation.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ServiceException.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\VehicleDao.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ReservationDao.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\utils\IOUtils.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\persistence\FillDatabase.java
