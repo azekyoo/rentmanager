@@ -60,4 +60,13 @@ public class VehiculeService {
 			throw new ServiceException("Impossible de vérifier le constructeur et il faut un nombre de places strictement supérieur à 0");
 		}
 	}
+
+	public int countVehicles() throws ServiceException {
+		try {
+			return VehicleDao.getInstance().count();
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la récupération du nombre de véhicules");
+		}
+	}
+
 }

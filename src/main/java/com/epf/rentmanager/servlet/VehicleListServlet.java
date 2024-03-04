@@ -13,7 +13,7 @@ import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehiculeService;
 
-@WebServlet("/vehicles")
+@WebServlet("/cars")
 public class VehicleListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class VehicleListServlet extends HttpServlet {
         try {
             List<Vehicule> vehicles = vehicleService.findAll();
             request.setAttribute("vehicles", vehicles);
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicle/list.jsp")
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp")
                     .forward(request, response);
         } catch (ServiceException e) {
             throw new ServletException("Error while fetching vehicles", e);

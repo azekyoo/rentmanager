@@ -31,6 +31,9 @@ public class VehicleDao {
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle;";
 
+	private static final String FIND_ALL_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
+
+
 	public long create(Vehicule vehicule) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
 			 PreparedStatement preparedStatement = connection.prepareStatement(CREATE_VEHICLE_QUERY,
@@ -73,13 +76,13 @@ public class VehicleDao {
 
 	public Vehicule findById(long id) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement preparedStatement = connection.prepareStatement(FIND_VEHICLE_QUERY)) {
+			 PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_VEHICLES_QUERY)) {
 
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				return extractVehiculeFromResultSet(resultSet);
+				return extractVehicleFromResultSet(resultSet);
 			}
 
 		} catch (SQLException e) {
@@ -91,24 +94,21 @@ public class VehicleDao {
 
 	public List<Vehicule> findAll() throws DaoException {
 		List<Vehicule> vehicles = new ArrayList<>();
-
 		try (Connection connection = ConnectionManager.getConnection();
-			 Statement statement = connection.createStatement()) {
-
-			ResultSet resultSet = statement.executeQuery(FIND_VEHICLES_QUERY);
+			 PreparedStatement ps = connection.prepareStatement(FIND_ALL_VEHICLES_QUERY);
+			 ResultSet resultSet = ps.executeQuery()) {
 
 			while (resultSet.next()) {
-				vehicles.add(extractVehiculeFromResultSet(resultSet));
+				Vehicule vehicle = extractVehicleFromResultSet(resultSet);
+				vehicles.add(vehicle);
 			}
-
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors du listage de l'ensemble des véhicules");
+			throw new DaoException("Une erreur est survenue lors de la récupération de tous les véhicules.", e);
 		}
-
 		return vehicles;
 	}
 
-	private Vehicule extractVehiculeFromResultSet(ResultSet resultSet) throws SQLException {
+	private Vehicule extractVehicleFromResultSet(ResultSet resultSet) throws SQLException {
 		int id = resultSet.getInt("id");
 		String constructeur = resultSet.getString("constructeur");
 		String modele = resultSet.getString("modele");
@@ -116,4 +116,19 @@ public class VehicleDao {
 
 		return new Vehicule(id, constructeur, modele, nb_places );
 	}
+
+	public int count() throws DaoException {
+		try (Connection connection = ConnectionManager.getConnection();
+			 Statement statement = connection.createStatement()) {
+
+			ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS count FROM Vehicle");
+			if (resultSet.next()) {
+				return resultSet.getInt("count");
+			}
+			return 0; // Si aucun véhicule n'est trouvé, retourne 0
+		} catch (SQLException e) {
+			throw new DaoException("Erreur lors du comptage des véhicules dans la base de données", e);
+		}
+	}
+
 }

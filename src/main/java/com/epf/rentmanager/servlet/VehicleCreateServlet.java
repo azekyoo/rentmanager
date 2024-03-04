@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/vehicle/create")
+@WebServlet("/cars/create")
 public class VehicleCreateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-         request.getRequestDispatcher("/WEB-INF/views/vehicle/create.jsp").forward(request, response);
+         request.getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
