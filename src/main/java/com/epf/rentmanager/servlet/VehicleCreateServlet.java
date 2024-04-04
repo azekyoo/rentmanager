@@ -14,8 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 @WebServlet("/cars/create")
 public class VehicleCreateServlet extends HttpServlet {
+
+    @Autowired
+    private VehiculeService vehiculeService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
@@ -35,7 +45,7 @@ public class VehicleCreateServlet extends HttpServlet {
         Vehicule vehicle = new Vehicule(constructeur, modele, nbPlaces);
 
         try {
-            VehiculeService.getInstance().create(vehicle);
+            vehiculeService.create(vehicle);
             response.sendRedirect(request.getContextPath() + "/success.jsp");
         } catch (ServiceException e) {
             // Log the error for debugging purposes

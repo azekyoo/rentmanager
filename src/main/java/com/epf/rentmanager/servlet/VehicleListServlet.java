@@ -21,7 +21,13 @@ public class VehicleListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    private VehiculeService vehicleService = VehiculeService.getInstance();
+    VehiculeService vehicleService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

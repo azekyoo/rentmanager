@@ -58,7 +58,7 @@ public class VehiculeService {
 
 	public int countVehicles() throws ServiceException {
 		try {
-			return VehicleDao.count();
+			return vehiculeDao.count();
 		} catch (DaoException e) {
 			throw new ServiceException("Erreur lors de la récupération du nombre de véhicules");
 		}
