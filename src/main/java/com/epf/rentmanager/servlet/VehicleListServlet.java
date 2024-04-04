@@ -13,10 +13,14 @@ import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehiculeService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 @WebServlet("/cars")
 public class VehicleListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+
+    @Autowired
     private VehiculeService vehicleService = VehiculeService.getInstance();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -1,5 +1,6 @@
 package com.epf.rentmanager.ui.cli;
 
+import com.epf.rentmanager.configuration.AppConfiguration;
 import com.epf.rentmanager.models.Client;
 import com.epf.rentmanager.models.Reservation;
 import com.epf.rentmanager.models.Vehicule;
@@ -8,6 +9,8 @@ import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehiculeService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.utils.IOUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,14 +18,16 @@ import java.util.Scanner;
 
 public class CommandLineInterface {
 
-    private static ClientService clientService;
-    private final VehiculeService vehiculeService;
+    static ApplicationContext context = new
+            AnnotationConfigApplicationContext(AppConfiguration.class);
+    static ClientService clientService = context.getBean(ClientService.class);
+    static VehiculeService vehicleService = context.getBean(VehiculeService.class);
+    static ReservationService reservationService = context.getBean(ReservationService.class);
 
-    private ReservationService reservationService;
     private Scanner scanner;
     public CommandLineInterface(ClientService clientService, VehiculeService vehicleService, ReservationService reservationService) {
         this.clientService = clientService;
-        this.vehiculeService = vehicleService;
+        this.vehicleService = vehicleService;
         this.reservationService = reservationService;
         this.scanner = new Scanner(System.in);
     }
@@ -146,7 +151,7 @@ public class CommandLineInterface {
 
         try {
             Vehicule newVehicle = new Vehicule(manufacturer, modele, seats);
-            vehiculeService.create(newVehicle);
+            vehicleService.create(newVehicle);
             System.out.println("Vehicule créé avec succès!");
         } catch (ServiceException e) {
             System.out.println("Erreur lors de la création des vehicules: " + e.getMessage());
@@ -155,7 +160,7 @@ public class CommandLineInterface {
 
     private void listAllVehicles() {
         try {
-            List<Vehicule> vehicles = vehiculeService.findAll();
+            List<Vehicule> vehicles = vehicleService.findAll();
             System.out.println("Liste des véhicules:");
             for (Vehicule vehicle : vehicles) {
                 System.out.println(vehicle);
@@ -165,7 +170,7 @@ public class CommandLineInterface {
         }
     }
 
-    private static void deleteClient() {
+    private void deleteClient() {
         long id = IOUtils.readInt("ID du client à supprimer : ");
         try {
             Client client = clientService.findById(id);
@@ -176,11 +181,11 @@ public class CommandLineInterface {
         }
     }
 
-    private static void deleteVehicle() {
+    private void deleteVehicle() {
         long id = IOUtils.readInt("ID du véhicule à supprimer : ");
         try {
-            Vehicule vehicle = VehiculeService.getInstance().findById(id);
-            VehiculeService.delete(vehicle);
+            Vehicule vehicle = vehicleService.findById(id);
+            vehicleService.delete(vehicle);
             System.out.println("Le véhicule a été supprimé avec succès !");
         } catch (ServiceException e) {
             System.out.println("Erreur lors de la suppression du véhicule : " + e.getMessage());
@@ -272,12 +277,4 @@ public class CommandLineInterface {
         }
     }
 
-
-    public static void main(String[] args) {
-        ClientService clientService = ClientService.getInstance();
-        VehiculeService vehicleService = VehiculeService.getInstance();
-        ReservationService reservationService = ReservationService.getInstance();
-        CommandLineInterface cli = new CommandLineInterface(clientService, vehicleService, reservationService);
-        cli.start();
-    }
 }
