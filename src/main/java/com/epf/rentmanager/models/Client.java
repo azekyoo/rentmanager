@@ -4,22 +4,22 @@ import java.time.LocalDate;
 public class Client {
     private Integer id;
     private String nom;
-    private String prénom;
+    private String prenom;
     private String email;
     private LocalDate naissance;
 
-    public Client(Integer id, String nom, String prénom, String email, LocalDate naissance) {
+    public Client(Integer id, String nom, String prenom, String email, LocalDate naissance) {
         this.id = id;
         this.nom = nom;
-        this.prénom = prénom;
+        this.prenom = prenom;
         this.email = email;
         this.naissance = naissance;
 
     }
 
-    public Client(String nom, String prénom, String email, LocalDate naissance) {
+    public Client(String nom, String prenom, String email, LocalDate naissance) {
         this.nom = nom;
-        this.prénom = prénom;
+        this.prenom = prenom;
         this.email = email;
         this.naissance = naissance;
 
@@ -41,12 +41,12 @@ public class Client {
         this.nom = nom;
     }
 
-    public String getPrénom() {
-        return prénom;
+    public String getprenom() {
+        return prenom;
     }
 
-    public void setPrénom(String prénom) {
-        this.prénom = prénom;
+    public void setprenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public String getEmail() {
@@ -55,6 +55,7 @@ public class Client {
 
     public void setEmail(String email) {
         this.email = email;
+
     }
 
     public LocalDate getNaissance() {
@@ -70,7 +71,7 @@ public class Client {
         return "Client{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
-                ", prénom='" + prénom + '\'' +
+                ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", naissance=" + naissance +
                 '}';

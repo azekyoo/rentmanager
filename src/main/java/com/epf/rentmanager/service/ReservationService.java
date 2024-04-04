@@ -37,4 +37,25 @@ public class ReservationService {
     public void deleteReservation(Reservation reservation) throws DaoException {
         reservationDao.delete(reservation);
     }
+
+    public List<Reservation> findResaByVehicleId(int vehicleId) throws ServiceException {
+
+        try {
+            return reservationDao.findResaByVehicleId(vehicleId);
+
+        } catch (DaoException e) {
+            throw new ServiceException("Il y a eu un problème dans la dao"+ e.getMessage());
+        }
+    }
+
+    public long delete (Reservation reservation) throws ServiceException {
+        try {
+            if (reservation.getClient_id() != 0){
+                return reservationDao.delete(reservation);
+            }
+            throw new ServiceException("il y a eu un problème dans la dao ");
+        } catch (DaoException e) {
+            throw new ServiceException("il y a eu un problème dans la dao "+ e.getMessage());
+        }
+    }
 }

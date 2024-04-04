@@ -53,8 +53,8 @@ public class ClientService {
 	}
 
 	private void validateClient(Client client) throws ServiceException {
-		if (client.getNom().isEmpty() || client.getPrénom().isEmpty()) {
-			throw new ServiceException("Le prénom ou nom du client ne peut être vide");
+		if (client.getNom().isEmpty() || client.getprenom().isEmpty()) {
+			throw new ServiceException("Le Prenom ou nom du client ne peut être vide");
 		}
 	}
 }

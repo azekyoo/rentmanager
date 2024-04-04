@@ -35,7 +35,7 @@ public class ClientDao {
 					 Statement.RETURN_GENERATED_KEYS)) {
 
 			preparedStatement.setString(1, client.getNom());
-			preparedStatement.setString(2, client.getPrénom());
+			preparedStatement.setString(2, client.getprenom());
 			preparedStatement.setString(3, client.getEmail());
 			preparedStatement.setDate(4, Date.valueOf(client.getNaissance()));
 
