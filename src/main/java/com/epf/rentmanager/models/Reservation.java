@@ -3,13 +3,14 @@ package com.epf.rentmanager.models;
 import java.time.LocalDate;
 
 public class Reservation {
-    private Integer id;
-    private Integer client_id;
-    private  Integer vehicle_id;
+    private int id;
+    private int client_id;
+    private int vehicle_id;
     private LocalDate debut;
     private LocalDate fin;
 
-    public Reservation() {
+    // Constructor
+    public Reservation(int id, int client_id, int vehicle_id, LocalDate debut, LocalDate fin) {
         this.id = id;
         this.client_id = client_id;
         this.vehicle_id = vehicle_id;
@@ -17,61 +18,55 @@ public class Reservation {
         this.fin = fin;
     }
 
-    public Reservation(Integer id, Integer client_id, Integer vehicle_id, LocalDate debut, LocalDate fin) {
-        this.id = id;
-        this.client_id = client_id;
-        this.vehicle_id = vehicle_id;
+    public Reservation(int clientId, int vehicleId, LocalDate debut, LocalDate fin) {
+        this.client_id = clientId;
+        this.vehicle_id = vehicleId;
         this.debut = debut;
         this.fin = fin;
     }
 
-    public Reservation(Integer client_id, Integer vehicle_id, LocalDate debut, LocalDate fin) {
-        this.client_id = client_id;
-        this.vehicle_id = vehicle_id;
-        this.debut = debut;
-        this.fin = fin;
-    }
-
-    public Integer getId() {
+    // Getters
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getClient_id() {
+    public int getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(Integer client_id) {
-        this.client_id = client_id;
-    }
-
-    public Integer getVehicle_id() {
+    public int getVehicle_id() {
         return vehicle_id;
-    }
-
-    public void setVehicle_id(Integer vehicle_id) {
-        this.vehicle_id = vehicle_id;
     }
 
     public LocalDate getDebut() {
         return debut;
     }
 
-    public void setDebut(LocalDate debut) {
-        this.debut = debut;
-    }
-
     public LocalDate getFin() {
         return fin;
     }
 
-    public void setFin(LocalDate fin) {
-        this.fin = fin;
+    // Setters
+    public void setId(int id) {
+        this.id = id;
     }
 
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
+    }
+
+    public void setVehicle_id(int vehicle_id) {
+        this.vehicle_id = vehicle_id;
+    }
+
+    public void setDebut(LocalDate debut) {
+        this.debut = debut;
+    }
+
+    public void setFin(LocalDate fin) {
+        this.fin = fin;
+
+    }
     @Override
     public String toString() {
         return "Reservation{" +

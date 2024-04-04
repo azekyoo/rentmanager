@@ -1,12 +1,19 @@
 package com.epf.rentmanager.dao;
 
-import org.springframework.stereotype.Repository;
+public class DaoException extends Exception{
+    public DaoException() {
+        super();
+    }
 
-public class DaoException extends Exception {
-     public DaoException(String message) {
+    public DaoException(String message) {
         super(message);
     }
-     public DaoException(String message, Throwable cause) {
+
+    public DaoException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    public DaoException(Throwable cause) {
+        super(cause);
     }
 }

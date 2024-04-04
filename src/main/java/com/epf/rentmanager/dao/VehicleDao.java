@@ -4,90 +4,83 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.persistence.ConnectionManager;
-
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class VehicleDao {
 
+	private VehicleDao() {}
 
-	private VehicleDao() {
-	}
-
-
-
-	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES(?, ?, ?);";
-
-	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
-	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle WHERE id=?;";
-	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle;";
-
+	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES (?, ?, ?);";
+	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id = ?;";
+	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle WHERE id = ?;";
 	private static final String FIND_ALL_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
-
 	private static final String COUNT_VEHICLES_QUERY = "SELECT COUNT(*) FROM Vehicle";
 
-	public long create(Vehicule vehicule) throws DaoException {
+	public long create(Vehicule vehicle) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement preparedStatement = connection.prepareStatement(CREATE_VEHICLE_QUERY,
-					 Statement.RETURN_GENERATED_KEYS)) {
+			 PreparedStatement ps = connection.prepareStatement(CREATE_VEHICLE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-			preparedStatement.setString(1, vehicule.getConstructeur());
-			preparedStatement.setString(2, vehicule.getModele());
-			preparedStatement.setInt(3, vehicule.getNb_places());
+			ps.setString(1, vehicle.getConstructeur());
+			ps.setString(2, vehicle.getModele());
+			ps.setInt(3, vehicle.getNb_places());
 
-			int affectedRows = preparedStatement.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new DaoException("Erreur lors de la création de véhicule, pas de rows affectées");
+			int rowsAffected = ps.executeUpdate();
+			if (rowsAffected == 0) {
+				throw new DaoException("La création du véhicule a échoué, aucune ligne affectée.");
 			}
 
-			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					return generatedKeys.getLong(1);
 				} else {
-					throw new DaoException("Erreur lors de la création de véhicule, pas d'id obtenu");
+					throw new DaoException("La création du véhicule a échoué, aucun ID généré.");
 				}
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la création de véhicule");
+			throw new DaoException("Une erreur est survenue lors de la création du véhicule.", e);
 		}
 	}
 
-
-	public static long delete(Vehicule vehicule) throws DaoException {
+	public long delete(Vehicule vehicle) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_VEHICLE_QUERY)) {
+			 PreparedStatement ps = connection.prepareStatement(DELETE_VEHICLE_QUERY)) {
 
-			preparedStatement.setLong(1, vehicule.getId());
-			return preparedStatement.executeUpdate();
+			ps.setLong(1, vehicle.getId());
 
+			int rowsAffected = ps.executeUpdate();
+			if (rowsAffected == 0) {
+				throw new DaoException("La suppression du véhicule a échoué, aucun véhicule avec l'ID : " + vehicle.getId());
+			}
+
+			// Return any appropriate value indicating success
+			return rowsAffected; // For example, return the number of rows affected
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la suppression de véhicule");
+			throw new DaoException("Une erreur est survenue lors de la suppression du véhicule.", e);
 		}
 	}
 
 	public Vehicule findById(long id) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_VEHICLES_QUERY)) {
+			 PreparedStatement ps = connection.prepareStatement(FIND_VEHICLE_QUERY)) {
 
-			preparedStatement.setLong(1, id);
-			ResultSet resultSet = preparedStatement.executeQuery();
+			ps.setLong(1, id);
 
-			if (resultSet.next()) {
-				return extractVehicleFromResultSet(resultSet);
+			try (ResultSet resultSet = ps.executeQuery()) {
+				if (resultSet.next()) {
+					return extractVehicleFromResultSet(resultSet);
+				} else {
+					throw new DaoException("Aucun véhicule trouvé avec l'ID : " + id);
+				}
 			}
-
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la recherche de véhicule par id");
+			throw new DaoException("Une erreur est survenue lors de la recherche du véhicule par ID.", e);
 		}
-
-		throw new DaoException("Véhicule non trouvé a pour id " + id);
 	}
 
 	public List<Vehicule> findAll() throws DaoException {

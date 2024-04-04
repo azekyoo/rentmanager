@@ -5,18 +5,19 @@ import java.util.List;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.models.Client;
+import com.epf.rentmanager.models.Reservation;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClientService {
 
 	private final ClientDao clientDao;
+	private final ReservationService reservationService;
 
-	public ClientService(ClientDao clientDao) {
+	private ClientService(ClientDao clientDao, ReservationService reservationService) {
 		this.clientDao = clientDao;
+		this.reservationService = reservationService;
 	}
-
-
 
 	public long create(Client client) throws ServiceException {
 		validateClient(client);
@@ -25,14 +26,6 @@ public class ClientService {
 			return clientDao.create(client);
 		} catch (DaoException e) {
 			throw new ServiceException("Erreur lors de la création d'un client");
-		}
-	}
-
-	public void delete(Client client) throws ServiceException {
-		try {
-			clientDao.delete(client);
-		} catch (DaoException e) {
-			throw new ServiceException("Erreur lors de la suppression du client");
 		}
 	}
 
@@ -53,11 +46,25 @@ public class ClientService {
 	}
 
 	private void validateClient(Client client) throws ServiceException {
-		if (client.getNom().isEmpty() || client.getprenom().isEmpty()) {
-			throw new ServiceException("Le Prenom ou nom du client ne peut être vide");
+		if (client.getNom().isEmpty() || client.getPrenom().isEmpty()) {
+			throw new ServiceException("Le prénom ou nom du client ne peut être vide");
 		}
 	}
+	public void delete(Client client) throws ServiceException {
+		try {
+			long clientId = client.getId();
 
+			List<Reservation> reservations = reservationService.findReservationsByClientId(clientId);
+
+			for (Reservation reservation : reservations) {
+				reservationService.delete(reservation.getId());
+			}
+
+			clientDao.delete(client);
+		} catch (DaoException | ServiceException e) {
+			throw new ServiceException("Erreur lors de la suppression du client et de ses réservations", e);
+		}
+	}
 	public int countClients() throws ServiceException {
 		try {
 			return clientDao.count();
@@ -65,4 +72,5 @@ public class ClientService {
 			throw new ServiceException("Erreur lors de la récupération du nombre de clients");
 		}
 	}
+
 }

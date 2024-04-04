@@ -1,75 +1,70 @@
 package com.epf.rentmanager.models;
-
 import java.time.LocalDate;
+import java.util.Optional;
+
 public class Client {
-    private Integer id;
+    private int id;
     private String nom;
     private String prenom;
     private String email;
-    private LocalDate naissance;
+    private LocalDate birthdate;
 
-    public Client(Integer id, String nom, String prenom, String email, LocalDate naissance) {
+    public Client(int id, String nom, String prenom, String email, LocalDate birthdate){
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.naissance = naissance;
-
+        this.birthdate = birthdate;
     }
 
     public Client(String nom, String prenom, String email, LocalDate naissance) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.naissance = naissance;
-
+        this.birthdate = naissance;
     }
 
-    public Client() {
-
-    }
-
-    public Integer getId() {
+    // Getters
+    public int getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getprenom() {
+    public String getPrenom() {
         return prenom;
-    }
-
-    public void setprenom(String prenom) {
-        this.prenom = prenom;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public LocalDate getNaissance() {
+        return birthdate;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
     public void setEmail(String email) {
         this.email = email;
-
     }
 
-    public LocalDate getNaissance() {
-        return naissance;
+    public void setNaissance(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
-
-    public void setNaissance(LocalDate naissance) {
-        this.naissance = naissance;
-    }
-
     @Override
     public String toString() {
         return "Client{" +
@@ -77,7 +72,8 @@ public class Client {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
-                ", naissance=" + naissance +
+                ", birthdate=" + birthdate +
                 '}';
     }
 }
+

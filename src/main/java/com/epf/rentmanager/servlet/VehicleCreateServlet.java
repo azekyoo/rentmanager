@@ -2,7 +2,7 @@ package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.service.ServiceException;
-import com.epf.rentmanager.service.VehiculeService;
+import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -19,7 +19,7 @@ public class VehicleCreateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    private VehiculeService vehicleService;
+    private VehicleService vehicleService;
 
     @Override
     public void init() throws ServletException {

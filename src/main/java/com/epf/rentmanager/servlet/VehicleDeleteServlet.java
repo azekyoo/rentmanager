@@ -1,35 +1,26 @@
 package com.epf.rentmanager.servlet;
 
-import java.io.IOException;
-import java.util.List;
+import com.epf.rentmanager.models.Vehicule;
+import com.epf.rentmanager.service.ServiceException;
+import com.epf.rentmanager.service.VehicleService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.epf.rentmanager.models.Reservation;
-import com.epf.rentmanager.models.Vehicule;
-import com.epf.rentmanager.service.ReservationService;
-import com.epf.rentmanager.service.VehiculeService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import java.io.IOException;
 
 @WebServlet("/cars/delete")
 public class VehicleDeleteServlet extends HttpServlet {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    VehiculeService vehicleService;
-
-    @Autowired
-    ReservationService reservationService;
+    private VehicleService vehicleService;
 
     @Override
     public void init() throws ServletException {
@@ -37,26 +28,22 @@ public class VehicleDeleteServlet extends HttpServlet {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
-    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        long vehicleId = Long.parseLong(request.getParameter("id"));
+
         try {
-            int vehicleId = Integer.parseInt(request.getParameter("id"));
-            Vehicule vehicle = new Vehicule();
-            vehicle.setId(vehicleId);
-            List<Reservation> reservations = reservationService.findResaByVehicleId(vehicleId);
-            for (Reservation reservation : reservations){
-                System.out.println(reservation);
-                reservationService.delete(reservation);
-            }
+            // Find the Vehicle object corresponding to the vehicleId
+            Vehicule vehicle = vehicleService.findById(vehicleId);
+
+            // Call the delete method with the found Vehicle object
             vehicleService.delete(vehicle);
-            response.sendRedirect("http://localhost:8080/rentmanager/cars");
-        } catch(final Exception e) {
-            request.setAttribute("ErrorMessage", e.getMessage());
+
+            response.sendRedirect(request.getContextPath() + "/cars");
+        } catch (ServiceException e) {
             e.printStackTrace();
-            System.out.println("Une erreur est survenue : " + e.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting the vehicle.");
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        doGet(request, response);
-    }
 }
