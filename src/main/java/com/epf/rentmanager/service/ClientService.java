@@ -5,23 +5,18 @@ import java.util.List;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.models.Client;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClientService {
 
 	private final ClientDao clientDao;
-	private static ClientService instance;
 
-	private ClientService() {
-		this.clientDao = ClientDao.getInstance();
+	public ClientService(ClientDao clientDao) {
+		this.clientDao = clientDao;
 	}
 
-	public static ClientService getInstance() {
-		if (instance == null) {
-			instance = new ClientService();
-		}
 
-		return instance;
-	}
 
 	public long create(Client client) throws ServiceException {
 		validateClient(client);

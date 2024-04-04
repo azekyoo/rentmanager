@@ -13,19 +13,16 @@ import java.util.List;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.models.Client;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class ClientDao {
 
-	private static ClientDao instance = null;
 
 	private ClientDao() {
 	}
 
-	public static ClientDao getInstance() {
-		if (instance == null) {
-			instance = new ClientDao();
-		}
-		return instance;
-	}
+
 
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";

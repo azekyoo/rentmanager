@@ -16,28 +16,34 @@ import javax.servlet.http.HttpServletResponse;
 public class VehicleCreateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-         request.getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String constructeur = request.getParameter("constructeur");
         String modele = request.getParameter("modele");
-        int nbPlaces = Integer.parseInt(request.getParameter("nbPlaces"));
+        String nbPlacesStr = request.getParameter("nbPlaces");
 
+        if (nbPlacesStr == null || nbPlacesStr.isEmpty()) {
+            nbPlacesStr = "0";
+        }
 
-        Vehicule vehicule = new Vehicule(constructeur, modele, nbPlaces);
+        int nbPlaces = Integer.parseInt(nbPlacesStr);
 
+        Vehicule vehicle = new Vehicule(constructeur, modele, nbPlaces);
 
         try {
-            VehiculeService.getInstance().create(vehicule);
-
+            VehiculeService.getInstance().create(vehicle);
             response.sendRedirect(request.getContextPath() + "/success.jsp");
         } catch (ServiceException e) {
+            // Log the error for debugging purposes
+            e.printStackTrace();
 
+            // Set an attribute with the error message
             request.setAttribute("errorMessage", "Une erreur est survenue lors de la création du véhicule");
-            request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
+
+            // Forward the request to a generic error page
+            request.getRequestDispatcher("/WEB-INF/views/errorPage.jsp").forward(request, response);
         }
     }
 }

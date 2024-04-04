@@ -45,7 +45,8 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Voitures</span>
-              <span class="info-box-number">2</span>
+              <!-- Affichage dynamique du nombre de véhicules -->
+              <span class="info-box-number">${vehicleCount}</span>
             </div>
             <!-- /.info-box-content -->
           </div>

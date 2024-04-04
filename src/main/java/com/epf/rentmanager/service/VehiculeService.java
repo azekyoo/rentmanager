@@ -5,23 +5,18 @@ import java.util.List;
 import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.models.Vehicule;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VehiculeService {
 
 	private final VehicleDao vehiculeDao;
-	private static VehiculeService instance;
 
-	private VehiculeService() {
-		this.vehiculeDao = VehicleDao.getInstance();
+	public VehiculeService(VehicleDao vehiculeDao) {
+		this.vehiculeDao = vehiculeDao;
 	}
 
-	public static VehiculeService getInstance() {
-		if (instance == null) {
-			instance = new VehiculeService();
-		}
 
-		return instance;
-	}
 
 	public long create(Vehicule vehicule) throws ServiceException {
 		validateVehicule(vehicule);
@@ -63,7 +58,7 @@ public class VehiculeService {
 
 	public int countVehicles() throws ServiceException {
 		try {
-			return VehicleDao.getInstance().count();
+			return VehicleDao.count();
 		} catch (DaoException e) {
 			throw new ServiceException("Erreur lors de la récupération du nombre de véhicules");
 		}

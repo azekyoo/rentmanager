@@ -19,6 +19,13 @@ public class Vehicule {
         this.nb_places = nb_places;
     }
 
+    public Vehicule() {
+        this.id = -1;
+        this.constructeur = "Unknown";
+        this.modele = "Unknown";
+        this.nb_places = 0;
+    }
+
     public Integer getId() {
         return id;
     }
