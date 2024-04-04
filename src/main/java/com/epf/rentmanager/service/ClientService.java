@@ -57,4 +57,12 @@ public class ClientService {
 			throw new ServiceException("Le Prenom ou nom du client ne peut être vide");
 		}
 	}
+
+	public int countClients() throws ServiceException {
+		try {
+			return clientDao.count();
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la récupération du nombre de clients");
+		}
+	}
 }
