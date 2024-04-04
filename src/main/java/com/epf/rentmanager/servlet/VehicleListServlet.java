@@ -15,13 +15,14 @@ import com.epf.rentmanager.service.VehiculeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 @WebServlet("/cars")
 public class VehicleListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    VehiculeService vehicleService;
+    private VehiculeService vehicleService;
 
     @Override
     public void init() throws ServletException {
@@ -34,8 +35,7 @@ public class VehicleListServlet extends HttpServlet {
         try {
             List<Vehicule> vehicles = vehicleService.findAll();
             request.setAttribute("vehicles", vehicles);
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp")
-                    .forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
         } catch (ServiceException e) {
             throw new ServletException("Error while fetching vehicles", e);
         }

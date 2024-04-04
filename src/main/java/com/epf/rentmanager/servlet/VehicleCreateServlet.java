@@ -3,23 +3,23 @@ package com.epf.rentmanager.servlet;
 import com.epf.rentmanager.models.Vehicule;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehiculeService;
-
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import java.io.IOException;
 
 @WebServlet("/cars/create")
 public class VehicleCreateServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+
     @Autowired
-    private VehiculeService vehiculeService;
+    private VehiculeService vehicleService;
 
     @Override
     public void init() throws ServletException {
@@ -32,30 +32,18 @@ public class VehicleCreateServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String constructeur = request.getParameter("constructeur");
+        String manufacturer = request.getParameter("manufacturer");
         String modele = request.getParameter("modele");
-        String nbPlacesStr = request.getParameter("nbPlaces");
+        int seats = Integer.parseInt(request.getParameter("seats"));
 
-        if (nbPlacesStr == null || nbPlacesStr.isEmpty()) {
-            nbPlacesStr = "0";
-        }
-
-        int nbPlaces = Integer.parseInt(nbPlacesStr);
-
-        Vehicule vehicle = new Vehicule(constructeur, modele, nbPlaces);
+        Vehicule vehicle = new Vehicule(0, manufacturer, modele, seats);
 
         try {
-            vehiculeService.create(vehicle);
-            response.sendRedirect(request.getContextPath() + "/success.jsp");
+            vehicleService.create(vehicle);
+            response.sendRedirect(request.getContextPath() + "/cars");
         } catch (ServiceException e) {
-            // Log the error for debugging purposes
             e.printStackTrace();
-
-            // Set an attribute with the error message
-            request.setAttribute("errorMessage", "Une erreur est survenue lors de la création du véhicule");
-
-            // Forward the request to a generic error page
-            request.getRequestDispatcher("/WEB-INF/views/errorPage.jsp").forward(request, response);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error creating the vehicle.");
         }
     }
 }
