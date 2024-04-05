@@ -3,6 +3,7 @@ package com.epf.rentmanager.servlet;
 import com.epf.rentmanager.models.Client;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.ClientService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -12,10 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
 
-@WebServlet("/users/create")
-public class ClientCreateServlet extends HttpServlet {
+@WebServlet("/users/delete")
+public class ClientDeleteServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,26 +28,22 @@ public class ClientCreateServlet extends HttpServlet {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nom = request.getParameter("last_name");
-        String prenom = request.getParameter("first_name");
-        String email = request.getParameter("email");
-        String naissanceStr = request.getParameter("birthdate");
-        LocalDate naissance = LocalDate.parse(naissanceStr);
-
-        Client client = new Client(0, nom, prenom, email, naissance);
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        long vehicleId = Long.parseLong(request.getParameter("id"));
 
         try {
-            clientService.create(client);
+            // Find the Vehicle object corresponding to the vehicleId
+            Client vehicle = clientService.findById(vehicleId);
+
+            // Call the delete method with the found Vehicle object
+            clientService.delete(vehicle);
+
             response.sendRedirect(request.getContextPath() + "/users");
         } catch (ServiceException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error creating the client.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting the user.");
         }
     }
+
 }

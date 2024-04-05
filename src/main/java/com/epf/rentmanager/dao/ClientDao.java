@@ -1,9 +1,6 @@
 package com.epf.rentmanager.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,5 +119,8 @@ public class ClientDao {
 			throw new DaoException("Une erreur est survenue lors du comptage des clients.", e);
 		}
 	}
+
+
+
 }
 
