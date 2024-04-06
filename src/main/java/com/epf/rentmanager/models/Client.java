@@ -75,5 +75,9 @@ public class Client {
                 ", birthdate=" + birthdate +
                 '}';
     }
+
+    public int getAge() {
+        return LocalDate.now().getYear() - birthdate.getYear();
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.epf.rentmanager.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.DaoException;
@@ -74,6 +75,11 @@ public class ClientService {
 	}
 
 
-
-
+	public Optional<Client> findByEmail(String email) throws ServiceException {
+		try {
+			return clientDao.findByEmail(email);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la recherche d'un client par email");
+		}
+	}
 }

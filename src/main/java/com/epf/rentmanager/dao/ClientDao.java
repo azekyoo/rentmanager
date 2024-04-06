@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.epf.rentmanager.models.Client;
 import com.epf.rentmanager.persistence.ConnectionManager;
@@ -121,6 +122,24 @@ public class ClientDao {
 	}
 
 
+	private static final String FIND_CLIENT_BY_EMAIL_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client WHERE email = ?;";
+	public Optional<Client> findByEmail(String email) throws DaoException {
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement ps = connection.prepareStatement(FIND_CLIENT_BY_EMAIL_QUERY)) {
+
+			ps.setString(1, email);
+
+			try (ResultSet resultSet = ps.executeQuery()) {
+				if (resultSet.next()) {
+					return Optional.of(extractClientFromResultSet(resultSet));
+				} else {
+					return Optional.empty();
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Une erreur est survenue lors de la recherche du client avec l'email : " + email, e);
+		}
+	}
 
 }
 

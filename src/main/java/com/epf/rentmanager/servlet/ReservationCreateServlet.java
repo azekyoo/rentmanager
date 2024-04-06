@@ -80,6 +80,12 @@ public class ReservationCreateServlet extends HttpServlet {
             LocalDate debut = LocalDate.parse(debutStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             LocalDate fin = LocalDate.parse(finStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
+            if (debut.isAfter(fin.minusDays(7))) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "La réservation doit être d'au moins 7 jours.");
+                return;
+            }
+
+
             // Create a new Reservation object
             Reservation reservation = new Reservation(clientId, vehicleId, debut, fin);
 

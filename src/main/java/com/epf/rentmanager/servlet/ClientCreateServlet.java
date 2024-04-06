@@ -42,6 +42,27 @@ public class ClientCreateServlet extends HttpServlet {
         Client client = new Client(0, nom, prenom, email, naissance);
 
 
+        if (client.getAge() < 18) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Le client doit avoir plus de 18 ans.");
+            return;
+        }
+        try {
+            if (clientService.findByEmail(email).isPresent()) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Un client avec cet email existe déjà.");
+                return;
+            }
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error checking the email.");
+            return;
+        }
+
+
+        if (nom.length() < 3 || prenom.length() < 3) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Le nom et le prénom doivent contenir au moins 3 caractères.");
+            return;
+        }
+
         try {
             clientService.create(client);
             response.sendRedirect(request.getContextPath() + "/users");
