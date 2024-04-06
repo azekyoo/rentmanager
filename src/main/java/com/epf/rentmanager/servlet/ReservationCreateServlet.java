@@ -85,6 +85,11 @@ public class ReservationCreateServlet extends HttpServlet {
                 return;
             }
 
+            if (!reservationService.checkVehicleAvailability(vehicleId, debut, fin)) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Le véhicule n'est pas disponible pour cette période.");
+                return;
+            }
+
 
             // Create a new Reservation object
             Reservation reservation = new Reservation(clientId, vehicleId, debut, fin);

@@ -16,6 +16,7 @@ C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\co
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\DaoException.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientDetailsServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\VehicleService.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleEditServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\models\Vehicule.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\cli\CommandLineInterface.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\models\Client.java
@@ -25,6 +26,7 @@ C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\co
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\models\Reservation.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ServiceException.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\configuration\WebConfiguration.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientEditServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientListServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleDetailsServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\persistence\FillDatabase.java

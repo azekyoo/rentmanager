@@ -82,4 +82,12 @@ public class ClientService {
 			throw new ServiceException("Erreur lors de la recherche d'un client par email");
 		}
 	}
+
+	public void update(Client updatedClient) throws ServiceException {
+		try {
+			clientDao.update(updatedClient);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la mise à jour du client");
+		}
+	}
 }

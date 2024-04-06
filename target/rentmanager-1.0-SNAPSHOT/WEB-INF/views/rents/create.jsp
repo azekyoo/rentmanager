@@ -31,50 +31,39 @@
                                     <label for="car" class="col-sm-2 control-label">Voiture</label>
 
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="vehicle" name="vehicle">
-                                            <c:forEach items="${vehicles}" var="vehicle">
-                                                <c:choose>
-                                                    <c:when test="${vehicle.id == reservation.vehicleId}">
-                                                        <option value="${vehicle.id}" selected>${vehicle.constructeur} ${vehicle.modele}</option>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <option value="${vehicle.id}">${vehicle.constructeur} ${vehicle.modele}</option>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
+                                            <select class="form-control" id="car" name="vehicleId">
+                                                <c:forEach var="vehicle" items="${vehicles}">
+                                                    <option value="${vehicle.id}">${vehicle.modele}</option>
+                                                </c:forEach>
+                                            </select>
+                                         </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="client" class="col-sm-2 control-label">Client</label>
+                               <div class="form-group">
+                                   <label for="client" class="col-sm-2 control-label">Client</label>
 
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="client" name="client">
-                                            <c:forEach items="${clients}" var="client">
-                                                <c:choose>
-                                                    <c:when test="${client.id == reservation.clientId}">
-                                                        <option value="${client.id}" selected>${client.prenom} ${client.nom}</option>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <option value="${client.id}">${client.prenom} ${client.nom}</option>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
+                                   <div class="col-sm-10">
+                                       <select class="form-control" id="client" name="clientId">
+                                           <c:forEach var="client" items="${clients}">
+                                               <option value="${client.id}">${client.nom} ${client.prenom}</option>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+                               </div>
+
                                 <div class="form-group">
                                     <label for="begin" class="col-sm-2 control-label">Date de debut</label>
 
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="begin" name="begin" required data-mask value="${reservation.debut}">
+                                        <input type="text" class="form-control" id="begin" name="begin" required
+                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="end" class="col-sm-2 control-label">Date de fin</label>
 
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="end" name="end" required data-mask value="${reservation.fin}">
+                                        <input type="text" class="form-control" id="end" name="end" required
+                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                                     </div>
                                 </div>
                             </div>

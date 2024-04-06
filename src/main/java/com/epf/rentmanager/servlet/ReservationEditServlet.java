@@ -95,8 +95,8 @@ public class ReservationEditServlet extends HttpServlet {
         long reservationId = Long.parseLong(request.getParameter("id"));
         int clientId = Integer.parseInt(request.getParameter("client_id"));
         int vehicleId = Integer.parseInt(request.getParameter("vehicle_id"));
-        String debutStr = request.getParameter("begin");
-        String finStr = request.getParameter("end");
+        String debutStr = request.getParameter("debut");
+        String finStr = request.getParameter("fin");
 
         if (debutStr == null || debutStr.isEmpty() || finStr == null || finStr.isEmpty()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Veuillez entrer des dates valides pour la réservation.");
@@ -104,6 +104,16 @@ public class ReservationEditServlet extends HttpServlet {
         }
         LocalDate debut = LocalDate.parse(debutStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         LocalDate fin = LocalDate.parse(finStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        if (debut.isAfter(fin.minusDays(7))) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "La réservation doit être d'au moins 7 jours.");
+            return;
+        }
+
+        if (!reservationService.checkVehicleAvailability(vehicleId, debut, fin)) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Le véhicule n'est pas disponible pour cette période.");
+            return;
+        }
         try {
             // Create a new Reservation object with updated details
             Reservation updatedReservation = new Reservation((int) reservationId, clientId, vehicleId, debut, fin);
@@ -120,4 +130,3 @@ public class ReservationEditServlet extends HttpServlet {
         }
     }
 }
-
