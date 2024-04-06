@@ -7,9 +7,11 @@ C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\co
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ReservationService.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ClientService.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\VehicleDao.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationCreateServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationListServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ReservationDao.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\utils\IOUtils.java
+C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationDeleteServlet.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\DaoException.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\VehicleService.java
 C:\epf\2024\Introduction à Java\Projet\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\models\Vehicule.java

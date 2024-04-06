@@ -37,7 +37,7 @@
                                 <!-- Iterate over the list of clients and populate table rows -->
                                 <c:forEach items="${clients}" var="client" varStatus="status">
                                     <tr>
-                                        <td>${status.index + 1}</td>
+                                        <td>${client.id}</td>
                                         <td>${client.nom}</td>
                                         <td>${client.prenom}</td>
                                         <td>${client.email}</td>
