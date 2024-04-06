@@ -11,14 +11,14 @@
     <table border="1">
         <tr>
             <th>Reservation ID</th>
-            <th>Vehicle ID</th>
+            <th>Client ID</th>
             <th>Start Date</th>
             <th>End Date</th>
         </tr>
         <c:forEach items="${reservations}" var="reservation">
             <tr>
                 <td>${reservation.id}</td>
-                <td>${reservation.vehicle_id}</td>
+                <td>${reservation.client_id}</td>
                 <td>${reservation.debut}</td>
                 <td>${reservation.fin}</td>
             </tr>

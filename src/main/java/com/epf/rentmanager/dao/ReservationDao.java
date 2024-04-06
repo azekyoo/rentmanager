@@ -25,6 +25,7 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation WHERE vehicle_id = ?;";
 	private static final String FIND_ALL_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 
+	private static final String UPDATE_RESERVATION_QUERY = "UPDATE Reservation SET client_id = ?, vehicle_id = ?, debut = ?, fin = ? WHERE id = ?;";
 	public long create(Reservation reservation) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
 			 PreparedStatement ps = connection.prepareStatement(CREATE_RESERVATION_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -149,6 +150,28 @@ public class ReservationDao {
 		return new Reservation(id, client_id, vehicle_id, debut, fin);
 	}
 
+	public Reservation update(Reservation reservation) throws DaoException {
+
+
+    try (Connection connection = ConnectionManager.getConnection();
+         PreparedStatement ps = connection.prepareStatement(UPDATE_RESERVATION_QUERY)) {
+
+        ps.setLong(1, reservation.getClient_id());
+        ps.setLong(2, reservation.getVehicle_id());
+        ps.setDate(3, java.sql.Date.valueOf(reservation.getDebut()));
+        ps.setDate(4, java.sql.Date.valueOf(reservation.getFin()));
+        ps.setLong(5, reservation.getId());
+
+        int rowsAffected = ps.executeUpdate();
+        if (rowsAffected == 0) {
+            throw new DaoException("Updating the reservation failed, no rows affected.");
+        }
+
+        return reservation;
+    } catch (SQLException e) {
+        throw new DaoException("An error occurred while updating the reservation.", e);
+    }
+ }
 
 }
 

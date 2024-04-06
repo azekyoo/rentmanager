@@ -1,3 +1,4 @@
+com\epf\rentmanager\servlet\VehicleDetailsServlet.class
 com\epf\rentmanager\models\Reservation.class
 com\epf\rentmanager\servlet\ClientCreateServlet.class
 com\epf\rentmanager\service\VehicleService.class
@@ -12,6 +13,7 @@ com\epf\rentmanager\servlet\HomeServlet.class
 com\epf\rentmanager\dao\ClientDao.class
 com\epf\rentmanager\configuration\AppConfiguration.class
 com\epf\rentmanager\service\ServiceException.class
+com\epf\rentmanager\servlet\ClientDetailsServlet.class
 com\epf\rentmanager\servlet\ReservationListServlet.class
 com\epf\rentmanager\models\Client.class
 com\epf\rentmanager\service\ReservationService.class

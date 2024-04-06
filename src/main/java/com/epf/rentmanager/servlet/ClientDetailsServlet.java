@@ -1,9 +1,9 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.models.Reservation;
-import com.epf.rentmanager.service.ServiceException;
+import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
-
+import com.epf.rentmanager.service.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -13,14 +13,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/rents/delete")
-public class ReservationDeleteServlet extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
+@WebServlet("/users/details")
+public class ClientDetailsServlet extends HttpServlet {
+    @Autowired
+    ClientService clientService;
 
     @Autowired
-    private ReservationService reservationService;
+    ReservationService reservationService;
 
     @Override
     public void init() throws ServletException {
@@ -30,17 +31,14 @@ public class ReservationDeleteServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        long reservationId = Long.parseLong(request.getParameter("id"));
-
         try {
-
-            reservationService.delete(reservationId);
-
-            response.sendRedirect(request.getContextPath() + "/rents");
+            int clientId = Integer.parseInt(request.getParameter("id"));
+            List<Reservation> reservations = reservationService.findReservationsByClientId(clientId);
+            request.setAttribute("reservations", reservations);
         } catch (ServiceException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting the reservation.");
+            throw new ServletException(e);
         }
-    }
 
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
+    }
 }
