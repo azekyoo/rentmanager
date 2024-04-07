@@ -41,7 +41,6 @@ public class FillDatabase {
 	            createPreparedStatement.close();
             }
 
-            // Remplissage de la base avec des Vehicules et des Clients
             Statement stmt = connection.createStatement();
             stmt.execute("INSERT INTO Vehicle(constructeur, nb_places, modele) VALUES('Renault', 5, 'Clio')");
             stmt.execute("INSERT INTO Vehicle(constructeur, nb_places, modele) VALUES('Peugeot', 5, '3008')");

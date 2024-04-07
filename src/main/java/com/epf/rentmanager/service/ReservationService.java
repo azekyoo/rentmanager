@@ -27,10 +27,8 @@ public class ReservationService {
 
     public void delete(long id) throws ServiceException {
         try {
-            // First, fetch the reservation by its ID
             Reservation reservation = reservationDao.findById(id);
 
-            // Then, call the delete method with the retrieved reservation
             reservationDao.delete(reservation);
         } catch (DaoException e) {
             throw new ServiceException("Erreur lors de la suppression de la réservation", e);

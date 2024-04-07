@@ -158,7 +158,7 @@ public class ClientDao {
 				throw new DaoException("Updating the client failed, no rows affected.");
 			}
 
-			return rowsAffected > 0 ? updatedClient : null; // Return null if no rows affected
+			return rowsAffected > 0 ? updatedClient : null;
 		} catch (SQLException e) {
 			throw new DaoException("An error occurred while updating the client.", e);
 		}

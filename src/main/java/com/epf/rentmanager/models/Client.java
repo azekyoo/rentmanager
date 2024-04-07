@@ -24,7 +24,9 @@ public class Client {
         this.birthdate = naissance;
     }
 
-    // Getters
+    public Client() {
+    }
+
     public int getId() {
         return id;
     }
@@ -45,7 +47,6 @@ public class Client {
         return birthdate;
     }
 
-    // Setters
     public void setId(int id) {
         this.id = id;
     }

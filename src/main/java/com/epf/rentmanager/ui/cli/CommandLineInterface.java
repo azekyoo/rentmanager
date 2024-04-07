@@ -97,7 +97,6 @@ public class CommandLineInterface {
         String email = "";
         boolean validEmail = false;
 
-        // Validate email format
         while (!validEmail) {
             email = IOUtils.readString("Email : ", true);
             if (isValidEmail(email)) {

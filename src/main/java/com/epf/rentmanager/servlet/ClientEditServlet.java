@@ -34,7 +34,7 @@ public class ClientEditServlet extends HttpServlet {
         try {
             Client client = clientService.findById(id);
             if (client != null) {
-                // format birthdate as string in yyyy-MM-dd format
+
                 String birthdate = (client.getNaissance() != null) ? client.getNaissance().format(DateTimeFormatter.ISO_DATE) : "";
                 request.setAttribute("client", client);
                 request.setAttribute("birthdate", birthdate);

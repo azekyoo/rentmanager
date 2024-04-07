@@ -58,8 +58,7 @@ public class VehicleDao {
 				throw new DaoException("La suppression du véhicule a échoué, aucun véhicule avec l'ID : " + vehicle.getId());
 			}
 
-			// Return any appropriate value indicating success
-			return rowsAffected; // For example, return the number of rows affected
+			return rowsAffected;
 		} catch (SQLException e) {
 			throw new DaoException("Une erreur est survenue lors de la suppression du véhicule.", e);
 		}
@@ -139,7 +138,7 @@ public class VehicleDao {
 				throw new DaoException("Updating the vehicle failed, no rows affected.");
 			}
 
-			return rowsAffected > 0 ? updatedVehicle : null; // Return null if no rows affected
+			return rowsAffected > 0 ? updatedVehicle : null;
 		} catch (SQLException e) {
 			throw new DaoException("An error occurred while updating the vehicle.", e);
 		}

@@ -33,10 +33,8 @@ public class VehicleDeleteServlet extends HttpServlet {
         long vehicleId = Long.parseLong(request.getParameter("id"));
 
         try {
-            // Find the Vehicle object corresponding to the vehicleId
             Vehicule vehicle = vehicleService.findById(vehicleId);
 
-            // Call the delete method with the found Vehicle object
             vehicleService.delete(vehicle);
 
             response.sendRedirect(request.getContextPath() + "/cars");

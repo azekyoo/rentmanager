@@ -56,18 +56,15 @@ public class ReservationCreateServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        // Set the data as request attributes
         request.setAttribute("vehicles", vehicles);
         request.setAttribute("clients", clients);
 
-        // Forward to the JSP for creating reservations
         request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // Retrieve parameters from the request
             int clientId = Integer.parseInt(request.getParameter("clientId"));
             int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
             String debutStr = request.getParameter("begin");
@@ -91,17 +88,13 @@ public class ReservationCreateServlet extends HttpServlet {
             }
 
 
-            // Create a new Reservation object
             Reservation reservation = new Reservation(clientId, vehicleId, debut, fin);
 
-            // Call the service method to add the reservation
             reservationService.create(reservation);
 
-            // Redirect to the list of reservations after successful creation
             response.sendRedirect(request.getContextPath() + "/rents");
         } catch (NumberFormatException | ServiceException e) {
-            // Handle exceptions (e.g., invalid input or service error)
-            e.printStackTrace(); // You may want to log the exception
+            e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error creating reservation");
         }
     }

@@ -5,7 +5,6 @@ public class Vehicule {
     private String constructeur;
     private String modele;
     private int nb_places;
-    // Constructor
     public Vehicule() {
         this.id = -1;
         this.constructeur = "Unknown";
@@ -25,7 +24,6 @@ public class Vehicule {
         this.nb_places = nbPlaces;
     }
 
-    // Getters
     public int getId() {
         return id;
     }
@@ -42,7 +40,6 @@ public class Vehicule {
         return nb_places;
     }
 
-    // Setters
     public void setId(int id) {
         this.id = id;
     }
